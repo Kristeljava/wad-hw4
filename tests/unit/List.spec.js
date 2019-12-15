@@ -10,6 +10,7 @@ describe("List is rendered correctly", () => {
     expect(wrapper.contains(".list-item")).toBe(false);
     expect(wrapper.html()).toContain("Add your first Todo task");
   });
+
   it("when an item in the list is marked as done, item is updated correctly. #1",() => {
     const wrapper = mount(List,{
       propsData: {
@@ -21,10 +22,11 @@ describe("List is rendered correctly", () => {
       }
     })
 
-    wrapper.find("span:first-of-type").trigger("click")
-    expect(wrapper.props().list[0].done).toBe(true)
-    expect(wrapper.props().list[1].done).toBe(false)
+    wrapper.find(".list-item:nth-of-type(2) span").trigger("click")
+    expect(wrapper.props().list[0].done).toBe(false)
+    expect(wrapper.props().list[1].done).toBe(true)
     expect(wrapper.props().list[2].done).toBe(false)
+
   });
-    
+
 });
