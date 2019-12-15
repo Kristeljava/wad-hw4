@@ -1,10 +1,30 @@
 import { mount } from "@vue/test-utils";
 import List from "../../src/components/List.vue";
+import Item from "../../src/models/Item";
 
 describe("List is rendered correctly", () => {
-  const wrapper = mount(List);
+  
+
   it("if no list item is provided List component displays text 'Add your first Todo task'", () => {
+    const wrapper = mount(List)
     expect(wrapper.contains(".list-item")).toBe(false);
     expect(wrapper.html()).toContain("Add your first Todo task");
   });
+  it("when an item in the list is marked as done, item is updated correctly. #1",() => {
+    const wrapper = mount(List,{
+      propsData: {
+  
+        list: [
+          new Item("car"),
+          new Item("bath"),
+          new Item("eat")]
+      }
+    })
+
+    wrapper.find("span:first-of-type").trigger("click")
+    expect(wrapper.props().list[0].done).toBe(true)
+    expect(wrapper.props().list[1].done).toBe(false)
+    expect(wrapper.props().list[2].done).toBe(false)
+  });
+    
 });
